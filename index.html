@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuestionario Semana 3 - Neurociencia del aprendizaje y memoria</title>
+  <style>
+    /* ======= ESTILOS GENERALES ======= */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #F85032, #E73827);
+    }
+    /* ======= CONTENEDOR PRINCIPAL ======= */
+    .container {
+      width: 95%;
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    h1, h2, p {
+      margin: 0;
+      color: #333;
+    }
+    .info {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    /* ======= CABECERA (TÍTULO) ======= */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-size: 1.5em;
+      color: #B71C1C;
+      margin-bottom: 8px;
+    }
+    /* ======= SECCIONES DE PREGUNTAS ======= */
+    .question {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-left: 5px solid #B71C1C;
+    }
+    .question p {
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 1.05em;
+    }
+    /* ======= ESTILO DE LABELS Y RADIO BUTTONS ======= */
+    .question label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+      position: relative;
+      padding-left: 28px;
+      line-height: 1.4;
+      font-size: 1em;
+    }
+    .question input[type="radio"] {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin-top: 2px;
+    }
+    .question label:hover {
+      background-color: rgba(183,28,28,0.05);
+    }
+    /* ======= BOTONES ======= */
+    #submitBtn,
+    #retryBtn {
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      margin: 10px 8px 20px 0;
+      color: #fff;
+      transition: background-color 0.3s ease;
+      width: 48%;
+      box-sizing: border-box;
+    }
+    #submitBtn {
+      background-color: #B71C1C;
+    }
+    #submitBtn:hover {
+      background-color: #8E1717;
+    }
+    #retryBtn {
+      background-color: #757575;
+    }
+    #retryBtn:hover {
+      background-color: #5c5c5c;
+    }
+    /* ======= RESULTADO ======= */
+    #result {
+      font-weight: bold;
+      margin: 15px 0;
+      font-size: 1.2em;
+      color: #B71C1C;
+      text-align: center;
+    }
+    /* ======= MODAL PARA MOSTRAR RESULTADOS ======= */
+    #resultModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #resultModal.hidden {
+      display: none;
+    }
+    #resultModal .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    #resultModal .modal-content h2 {
+      margin-top: 0;
+      color: #B71C1C;
+    }
+    #resultModal .modal-content button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #B71C1C;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #resultModal .modal-content button:hover {
+      background-color: #8E1717;
+    }
+    /* ======= MEDIA QUERIES ======= */
+    @media (min-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+      .question p {
+        font-size: 1.1em;
+      }
+      .question label {
+        font-size: 1.05em;
+      }
+      .info {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Cuestionario Semana 3 - Neurociencia del aprendizaje y memoria</h1>
+      <p class="info">
+        Instrucciones: selecciona la respuesta correcta para cada pregunta. Al final, haz clic en "Calificar" para ver tu puntuación.
+      </p>
+    </div>
+    <form id="quizForm">
+      <!-- Preguntas de opción múltiple -->
+      <div class="question">
+        <p>1. ¿Cuál es el objetivo principal de la neurociencia?</p>
+        <label><input type="radio" name="q1" value="a"> a) Estudiar el comportamiento animal</label>
+        <label><input type="radio" name="q1" value="b"> b) Comprender cómo el encéfalo produce las acciones humanas</label>
+        <label><input type="radio" name="q1" value="c"> c) Analizar la conducta desde la psicología clínica</label>
+        <label><input type="radio" name="q1" value="d"> d) Determinar la estructura genética de los seres humanos</label>
+      </div>
+      <div class="question">
+        <p>2. ¿Qué proceso permite que el aprendizaje cambie la conectividad neuronal?</p>
+        <label><input type="radio" name="q2" value="a"> a) Plasticidad sináptica</label>
+        <label><input type="radio" name="q2" value="b"> b) Homeostasis cerebral</label>
+        <label><input type="radio" name="q2" value="c"> c) Regeneración neuronal</label>
+        <label><input type="radio" name="q2" value="d"> d) Reflexión cognitiva</label>
+      </div>
+      <div class="question">
+        <p>3. ¿Cuál de las siguientes afirmaciones sobre el cerebro es correcta?</p>
+        <label><input type="radio" name="q3" value="a"> a) Su peso promedio es de 5 libras</label>
+        <label><input type="radio" name="q3" value="b"> b) Está compuesto en un 68% por grasas, proteínas y agua</label>
+        <label><input type="radio" name="q3" value="c"> c) No presenta pliegues ni surcos en su estructura</label>
+        <label><input type="radio" name="q3" value="d"> d) Su estructura y tamaño son idénticos en todos los individuos</label>
+      </div>
+      <div class="question">
+        <p>4. ¿Qué función tiene la corteza cerebral?</p>
+        <label><input type="radio" name="q4" value="a"> a) Controlar los movimientos involuntarios</label>
+        <label><input type="radio" name="q4" value="b"> b) Regular la temperatura corporal</label>
+        <label><input type="radio" name="q4" value="c"> c) Procesar información perceptual y cognitiva</label>
+        <label><input type="radio" name="q4" value="d"> d) Coordinar exclusivamente el habla</label>
+      </div>
+      <div class="question">
+        <p>5. ¿Cuál es la función principal del hipocampo?</p>
+        <label><input type="radio" name="q5" value="a"> a) Controlar la respiración</label>
+        <label><input type="radio" name="q5" value="b"> b) Procesar la memoria a largo plazo y la orientación espacial</label>
+        <label><input type="radio" name="q5" value="c"> c) Regular el equilibrio del cuerpo</label>
+        <label><input type="radio" name="q5" value="d"> d) Controlar la agresividad</label>
+      </div>
+      <div class="question">
+        <p>6. ¿Cuál de las siguientes estructuras está encargada de la producción y comprensión del lenguaje?</p>
+        <label><input type="radio" name="q6" value="a"> a) Amígdala y tálamo</label>
+        <label><input type="radio" name="q6" value="b"> b) Área de Broca y área de Wernicke</label>
+        <label><input type="radio" name="q6" value="c"> c) Hipocampo y cerebelo</label>
+        <label><input type="radio" name="q6" value="d"> d) Lóbulo occipital y lóbulo parietal</label>
+      </div>
+      <div class="question">
+        <p>7. ¿Qué hemisferio del cerebro es responsable de procesar elementos visuales y espaciales?</p>
+        <label><input type="radio" name="q7" value="a"> a) Izquierdo</label>
+        <label><input type="radio" name="q7" value="b"> b) Derecho</label>
+        <label><input type="radio" name="q7" value="c"> c) Ambos hemisferios por igual</label>
+        <label><input type="radio" name="q7" value="d"> d) Ninguno, esa función la cumple el tálamo</label>
+      </div>
+      <div class="question">
+        <p>8. ¿Cuál es la función principal del cerebelo?</p>
+        <label><input type="radio" name="q8" value="a"> a) Regular las emociones</label>
+        <label><input type="radio" name="q8" value="b"> b) Coordinar los movimientos físicos</label>
+        <label><input type="radio" name="q8" value="c"> c) Controlar la presión arterial</label>
+        <label><input type="radio" name="q8" value="d"> d) Almacenar recuerdos autobiográficos</label>
+      </div>
+      <div class="question">
+        <p>9. ¿Cuáles de los siguientes factores influyen en el desarrollo cerebral?</p>
+        <label><input type="radio" name="q9" value="a"> a) Genética, estimulación ambiental, nutrición, esteroides y teratógenos</label>
+        <label><input type="radio" name="q9" value="b"> b) Solo la genética y la nutrición</label>
+        <label><input type="radio" name="q9" value="c"> c) Factores hormonales exclusivamente</label>
+        <label><input type="radio" name="q9" value="d"> d) Experiencias de la infancia y adultez</label>
+      </div>
+      <div class="question">
+        <p>10. ¿En qué etapa del desarrollo cerebral ocurre la sinaptogénesis?</p>
+        <label><input type="radio" name="q10" value="a"> a) Semana 7 de gestación</label>
+        <label><input type="radio" name="q10" value="b"> b) Al nacer</label>
+        <label><input type="radio" name="q10" value="c"> c) En la adolescencia</label>
+        <label><input type="radio" name="q10" value="d"> d) Después de los 5 años</label>
+      </div>
+      <div class="question">
+        <p>11. ¿Qué ocurre durante la poda celular?</p>
+        <label><input type="radio" name="q11" value="a"> a) Se generan nuevas conexiones neuronales</label>
+        <label><input type="radio" name="q11" value="b"> b) Las sinapsis innecesarias se eliminan</label>
+        <label><input type="radio" name="q11" value="c"> c) Se forman las estructuras cerebrales principales</label>
+        <label><input type="radio" name="q11" value="d"> d) Las células madre producen nuevas neuronas</label>
+      </div>
+      <div class="question">
+        <p>12. ¿Cuál es la función principal del sistema nervioso autónomo?</p>
+        <label><input type="radio" name="q12" value="a"> a) Controlar funciones voluntarias del cuerpo</label>
+        <label><input type="radio" name="q12" value="b"> b) Regular funciones involuntarias como la respiración y la digestión</label>
+        <label><input type="radio" name="q12" value="c"> c) Coordinar los movimientos musculares</label>
+        <label><input type="radio" name="q12" value="d"> d) Procesar la información visual</label>
+      </div>
+      <div class="question">
+        <p>13. ¿Qué diferencia existe entre aprendizaje y memoria?</p>
+        <label><input type="radio" name="q13" value="a"> a) El aprendizaje es la adquisición de información, mientras que la memoria es la retención de esta</label>
+        <label><input type="radio" name="q13" value="b"> b) La memoria es un proceso consciente y el aprendizaje es inconsciente</label>
+        <label><input type="radio" name="q13" value="c"> c) El aprendizaje ocurre en la niñez y la memoria solo en la adultez</label>
+        <label><input type="radio" name="q13" value="d"> d) Ambos términos significan lo mismo</label>
+      </div>
+      <div class="question">
+        <p>14. ¿Cuáles son los dos tipos de memoria que influyen en el aprendizaje?</p>
+        <label><input type="radio" name="q14" value="a"> a) Memoria operativa y de corto plazo</label>
+        <label><input type="radio" name="q14" value="b"> b) Memoria episódica y semántica</label>
+        <label><input type="radio" name="q14" value="c"> c) Memoria sensorial y motora</label>
+        <label><input type="radio" name="q14" value="d"> d) Memoria genética y adquirida</label>
+      </div>
+      <div class="question">
+        <p>15. ¿Cómo influye la plasticidad neuronal en el aprendizaje?</p>
+        <label><input type="radio" name="q15" value="a"> a) Permite la modificación de las conexiones neuronales</label>
+        <label><input type="radio" name="q15" value="b"> b) Elimina el almacenamiento de la información</label>
+        <label><input type="radio" name="q15" value="c"> c) Bloquea la recepción de estímulos externos</label>
+        <label><input type="radio" name="q15" value="d"> d) Reduce la capacidad de adaptación del cerebro</label>
+      </div>
+      <div class="question">
+        <p>16. ¿Qué característica del cerebro le permite captar información de forma fragmentada y total al mismo tiempo?</p>
+        <label><input type="radio" name="q16" value="a"> a) Procesamiento consciente exclusivo</label>
+        <label><input type="radio" name="q16" value="b"> b) Percepción parcial del entorno</label>
+        <label><input type="radio" name="q16" value="c"> c) Capacidad de percibir y crear partes y "todos"</label>
+        <label><input type="radio" name="q16" value="d"> d) Función exclusiva del hemisferio izquierdo</label>
+      </div>
+      <div class="question">
+        <p>17. ¿Cómo influye la motivación en el aprendizaje según la neurociencia?</p>
+        <label><input type="radio" name="q17" value="a"> a) No tiene relación con la retención de información</label>
+        <label><input type="radio" name="q17" value="b"> b) Es irrelevante en la formación de conexiones neuronales</label>
+        <label><input type="radio" name="q17" value="c"> c) Se relaciona con procesos cognitivos y emocionales que potencian el aprendizaje</label>
+        <label><input type="radio" name="q17" value="d"> d) Solo influye en el aprendizaje práctico, no en el teórico</label>
+      </div>
+      <div class="question">
+        <p>18. ¿Qué afirmación describe la memoria de trabajo?</p>
+        <label><input type="radio" name="q18" value="a"> a) Es un almacén de capacidad ilimitada</label>
+        <label><input type="radio" name="q18" value="b"> b) Permite retener información por un período breve para su procesamiento</label>
+        <label><input type="radio" name="q18" value="c"> c) Solo almacena recuerdos de la infancia</label>
+        <label><input type="radio" name="q18" value="d"> d) Se encuentra exclusivamente en el cerebelo</label>
+      </div>
+      <!-- Preguntas de verdadero o falso -->
+      <div class="question">
+        <p>19. La neuroplasticidad permite la generación de nuevas neuronas durante toda la vida, aunque con una disminución progresiva.</p>
+        <label><input type="radio" name="q19" value="Verdadero"> Verdadero</label>
+        <label><input type="radio" name="q19" value="Falso"> Falso</label>
+      </div>
+      <div class="question">
+        <p>20. El estrés y la ansiedad en niveles elevados favorecen el aprendizaje y la formación de nuevas conexiones neuronales.</p>
+        <label><input type="radio" name="q20" value="Verdadero"> Verdadero</label>
+        <label><input type="radio" name="q20" value="Falso"> Falso</label>
+      </div>
+    </form>
+    <!-- BOTONES PARA CALIFICAR / REINTENTAR -->
+    <button type="button" id="submitBtn">Calificar</button>
+    <button type="button" id="retryBtn" class="hidden">Reintentar</button>
+    <!-- MOSTRARÁ LA CALIFICACIÓN DESPUÉS DE CERRAR EL MODAL -->
+    <div id="result"></div>
+  </div>
+
+  <!-- MODAL PARA MOSTRAR RESULTADOS -->
+  <div id="resultModal" class="hidden">
+    <div class="modal-content"></div>
+  </div>
+
+  <script>
+    // Array de respuestas correctas (en el mismo orden que aparecen las preguntas)
+    const correctAnswers = [
+      "b", "a", "b", "c", "b", "b", "b", "b", "a", "a",
+      "b", "b", "a", "b", "a", "c", "c", "b", "Verdadero", "Falso"
+    ];
+    
+    const submitBtn = document.getElementById("submitBtn");
+    const retryBtn = document.getElementById("retryBtn");
+    const resultDiv = document.getElementById("result");
+    const resultModal = document.getElementById("resultModal");
+    
+    submitBtn.addEventListener("click", () => {
+      let score = 0;
+      const totalQuestions = correctAnswers.length;
+      const incorrectDetails = [];
+      
+      // Recorre cada pregunta (q1, q2, ..., q20)
+      for (let i = 0; i < totalQuestions; i++) {
+        const questionName = "q" + (i + 1);
+        const userAnswerElem = document.querySelector(`input[name="${questionName}"]:checked`);
+        const userAnswer = userAnswerElem ? userAnswerElem.value : null;
+        
+        if (userAnswer && userAnswer === correctAnswers[i]) {
+          score++;
+        } else {
+          // Obtiene el texto del label de la respuesta correcta
+          const correctValue = correctAnswers[i];
+          const correctInput = document.querySelector(`input[name="${questionName}"][value="${correctValue}"]`);
+          const correctText = correctInput
+            ? correctInput.parentElement.innerText.trim()
+            : "No encontrada";
+          incorrectDetails.push({
+            question: i + 1,
+            correctAnswer: correctText
+          });
+        }
+      }
+      
+      // Cálculo del porcentaje
+      const percentage = (score / totalQuestions) * 100;
+      const finalScore = percentage.toFixed(2);
+      let message = "";
+      if (percentage >= 80) {
+        message = "¡Felicidades, excelente trabajo!";
+      } else if (percentage >= 70) {
+        message = "¡Puedes hacerlo mejor, sigue intentándolo!";
+      } else {
+        message = "¡Uy, con esa nota no pasas!";
+      }
+      
+      // Construye el contenido del modal
+      const modalContent = document.querySelector("#resultModal .modal-content");
+      modalContent.innerHTML = `
+        <h2>Resultados del Examen</h2>
+        <p style="font-size: 1.2em; color: #333;">Tu puntuación es: ${finalScore} / 100</p>
+        <p style="font-size: 1.1em; color: #B71C1C;">${message}</p>
+        <button id="modalAcceptBtn">Aceptar</button>
+      `;
+      
+      // Muestra el modal y deshabilita el botón de calificar
+      resultModal.classList.remove("hidden");
+      submitBtn.disabled = true;
+      
+      document.getElementById("modalAcceptBtn").addEventListener("click", () => {
+        resultModal.classList.add("hidden");
+        let resultHtml = `
+          <p style="font-size: 1.2em; color: #B71C1C;">
+            Tu puntuación es: ${finalScore} / 100. ${message}
+          </p>
+        `;
+        if (incorrectDetails.length > 0) {
+          resultHtml += `
+            <h3 style="margin-top:20px;">Respuestas correctas para las preguntas incorrectas:</h3>
+            <ul style="text-align:left; list-style:none; padding:0;">
+          `;
+          incorrectDetails.forEach(item => {
+            resultHtml += `<li><strong>Pregunta ${item.question}:</strong> ${item.correctAnswer}</li>`;
+          });
+          resultHtml += `</ul>`;
+        }
+        resultDiv.innerHTML = resultHtml;
+      });
+    });
+    
+    // Botón de reintentar: recarga la página para reiniciar el cuestionario
+    retryBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>
